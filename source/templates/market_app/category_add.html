@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card my-5">
+    <div class="card-header fs-4 text-center py-3">Добавить категорию</div>
+    <div class="card-body">
+        <form id="product-form" action="" method="POST">
+            {% csrf_token %}
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Название">
+                <label for="title">Название</label>
+            </div>
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="description" name="description"
+                          placeholder="Описание" style="height: 100px"></textarea>
+                <label for="description">Описание</label>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer text-end py-3">
+        <button type="submit" form="product-form" class="btn btn-sm btn-primary">Добавить категорию</button>
+    </div>
+</div>
+{% endblock %}
