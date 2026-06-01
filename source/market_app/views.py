@@ -38,3 +38,25 @@ def category_add_view(request):
             description=request.POST.get('description'),
         )
         return redirect('products')
+
+
+def product_delete_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    product.delete()
+    return redirect('products')
+
+
+def product_edit_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    if request.method == 'GET':
+        categories = Category.objects.all()
+        context = {'product': product, 'categories': categories}
+        return render(request, 'market_app/product_edit.html', context)
+    elif request.method == 'POST':
+        product.title = request.POST.get('title')
+        product.description = request.POST.get('description')
+        product.category = Category.objects.get(id=request.POST.get('category'))
+        product.price = request.POST.get('price')
+        product.image = request.POST.get('image')
+        product.save()
+        return redirect('product', pk=product.pk)
