@@ -1,0 +1,74 @@
+[
+{
+  "model": "market_app.category",
+  "pk": 1,
+  "fields": {
+    "title": "автозапчасти",
+    "description": ""
+  }
+},
+{
+  "model": "market_app.category",
+  "pk": 2,
+  "fields": {
+    "title": "продукты",
+    "description": ""
+  }
+},
+{
+  "model": "market_app.category",
+  "pk": 3,
+  "fields": {
+    "title": "одежда",
+    "description": "летние ,весенние, зимние"
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 1,
+  "fields": {
+    "title": "фильтр маслянный",
+    "description": "фильтр масляный  автомобиль daewoo nexia ",
+    "category": 1,
+    "created_at": "2026-06-01T01:56:46.854Z",
+    "price": "500.00",
+    "image": "https://vizap.shop/upload/iblock/051/tt24hayzd8clhiwykhauss3qvoxdw92r.JPG"
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 2,
+  "fields": {
+    "title": "помидоры",
+    "description": "помидоры свежие город Ош ",
+    "category": 2,
+    "created_at": "2026-06-01T01:59:49.030Z",
+    "price": "80.00",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqWdbH13AsoKrrvmo9_w_Ez_8RxcT570gsLw&s"
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 4,
+  "fields": {
+    "title": "футболка ",
+    "description": "материал хлопок",
+    "category": 3,
+    "created_at": "2026-06-01T02:44:04.558Z",
+    "price": "150.00",
+    "image": "https://shop.dashaphi.ru/images/products/1/2735/577637039/51E7A598-A798-4079-91EC-CB357076DBB3.jpg"
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 5,
+  "fields": {
+    "title": "футболка",
+    "description": "синтетический материал",
+    "category": 3,
+    "created_at": "2026-06-01T02:45:33.220Z",
+    "price": "100.00",
+    "image": "https://modano.ru/wa-data/public/shop/products/08/15/1508/images/203949/203949.635x953@2x.jpg"
+  }
+}
+]
