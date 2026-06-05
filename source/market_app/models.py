@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -21,6 +22,11 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     price = models.DecimalField(max_digits=10, decimal_places=2, null=False, verbose_name='Стоимость')
     image = models.URLField(null=False, blank=False, verbose_name='Изображение')
+    stock = models.IntegerField(
+        default=0,
+        validators=[MinValueValidator(0)],
+        verbose_name='Остаток'
+    )
 
     def __str__(self):
         return self.title
