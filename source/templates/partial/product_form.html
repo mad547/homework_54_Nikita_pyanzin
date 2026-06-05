@@ -1,0 +1,15 @@
+{% csrf_token %}
+
+{% for error in form.non_field_errors %}
+    <div class="alert alert-danger py-2">{{ error }}</div>
+{% endfor %}
+
+{% for field in form %}
+    <div class="form-floating mb-3">
+        {{ field }}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% for error in field.errors %}
+            <p class="text-danger fs-6 ms-1">{{ error }}</p>
+        {% endfor %}
+    </div>
+{% endfor %}
