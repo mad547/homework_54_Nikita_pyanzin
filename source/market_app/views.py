@@ -57,3 +57,12 @@ def category_add_view(request):
             description=request.POST.get('description'),
         )
         return redirect('products')
+
+
+def category_products_view(request,category_title):
+    category = get_object_or_404(Category, title=category_title)
+    products = Product.objects.filter(
+        category=category, stock__gte=1
+    ).order_by('title')
+    context = {'products': products, 'category': category}
+    return render(request, 'market_app/category_products.html', context)
