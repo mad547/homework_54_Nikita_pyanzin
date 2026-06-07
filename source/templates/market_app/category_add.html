@@ -5,16 +5,7 @@
     <div class="card-header fs-4 text-center py-3">Добавить категорию</div>
     <div class="card-body">
         <form id="category-form" action="" method="POST">
-            {% csrf_token %}
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="title" name="title" placeholder="Название">
-                <label for="title">Название</label>
-            </div>
-            <div class="form-floating mb-3">
-                <textarea class="form-control" id="description" name="description"
-                          placeholder="Описание" style="height: 100px"></textarea>
-                <label for="description">Описание</label>
-            </div>
+            {% include 'partial/product_form.html' %}
         </form>
     </div>
     <div class="card-footer d-flex justify-content-between py-3">

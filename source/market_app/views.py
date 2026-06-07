@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from market_app.models import Product, Category
-from market_app.forms import ProductForm
+from market_app.forms import ProductForm, CategoryForm
 
 
 def products_view(request):
@@ -49,17 +49,18 @@ def product_delete_view(request, pk):
 
 
 def category_add_view(request):
+    form = CategoryForm()
     if request.method == 'GET':
-        return render(request, 'market_app/category_add.html')
+        return render(request, 'market_app/category_add.html', {'form': form})
     elif request.method == 'POST':
-        Category.objects.create(
-            title=request.POST.get('title'),
-            description=request.POST.get('description'),
-        )
-        return redirect('products')
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('products')
+        return render(request, 'market_app/category_add.html', {'form': form})
 
 
-def category_products_view(request,category_title):
+def category_products_view(request, category_title):
     category = get_object_or_404(Category, title=category_title)
     products = Product.objects.filter(
         category=category, stock__gte=1

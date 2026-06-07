@@ -24,6 +24,14 @@
   }
 },
 {
+  "model": "market_app.category",
+  "pk": 4,
+  "fields": {
+    "title": "запчасти для авто",
+    "description": "фильтра тормозные колодки покрышки и тд"
+  }
+},
+{
   "model": "market_app.product",
   "pk": 1,
   "fields": {
@@ -32,7 +40,8 @@
     "category": 1,
     "created_at": "2026-06-01T01:56:46.854Z",
     "price": "500.00",
-    "image": "https://vizap.shop/upload/iblock/051/tt24hayzd8clhiwykhauss3qvoxdw92r.JPG"
+    "image": "https://vizap.shop/upload/iblock/051/tt24hayzd8clhiwykhauss3qvoxdw92r.JPG",
+    "stock": 0
   }
 },
 {
@@ -44,7 +53,8 @@
     "category": 2,
     "created_at": "2026-06-01T01:59:49.030Z",
     "price": "80.00",
-    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqWdbH13AsoKrrvmo9_w_Ez_8RxcT570gsLw&s"
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqWdbH13AsoKrrvmo9_w_Ez_8RxcT570gsLw&s",
+    "stock": 0
   }
 },
 {
@@ -56,7 +66,8 @@
     "category": 3,
     "created_at": "2026-06-01T02:44:04.558Z",
     "price": "150.00",
-    "image": "https://shop.dashaphi.ru/images/products/1/2735/577637039/51E7A598-A798-4079-91EC-CB357076DBB3.jpg"
+    "image": "https://shop.dashaphi.ru/images/products/1/2735/577637039/51E7A598-A798-4079-91EC-CB357076DBB3.jpg",
+    "stock": 0
   }
 },
 {
@@ -68,7 +79,47 @@
     "category": 3,
     "created_at": "2026-06-01T02:45:33.220Z",
     "price": "100.00",
-    "image": "https://modano.ru/wa-data/public/shop/products/08/15/1508/images/203949/203949.635x953@2x.jpg"
+    "image": "https://modano.ru/wa-data/public/shop/products/08/15/1508/images/203949/203949.635x953@2x.jpg",
+    "stock": 0
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 6,
+  "fields": {
+    "title": "тормозные колодки",
+    "description": "тормозные колодки которые не тормозят за то красивые",
+    "category": 1,
+    "created_at": "2026-06-07T19:19:24.841Z",
+    "price": "500.00",
+    "image": "https://uniparts.kz/static/image/custom/c90edc0c2b59a41347fcd1204c3baacd7f18d7ad.png",
+    "stock": 40
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 7,
+  "fields": {
+    "title": "морковь",
+    "description": "немытая россия",
+    "category": 2,
+    "created_at": "2026-06-07T19:21:56.655Z",
+    "price": "70.00",
+    "image": "https://www.proviant33.ru/upload/iblock/fa0/morkovnemytaya1kg.webp",
+    "stock": 500
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 8,
+  "fields": {
+    "title": "футболка",
+    "description": "футболка с принтом",
+    "category": 3,
+    "created_at": "2026-06-07T19:23:20.577Z",
+    "price": "500.00",
+    "image": "https://basket-05.wbbasket.ru/vol996/part99617/99617259/images/big/1.webp",
+    "stock": 30
   }
 }
 ]
