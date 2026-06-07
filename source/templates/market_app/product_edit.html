@@ -1,45 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card my-5">
-    <div class="card-header fs-4 text-center py-3">Редактировать товар</div>
+<div class="card card-shadow my-4">
+    <div class="card-header fs-4 text-center py-3">Редактировать: {{ product.title }}</div>
     <div class="card-body">
         <form id="product-form" action="" method="POST">
-            {% csrf_token %}
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="title" name="title"
-                       placeholder="Название" value="{{ product.title }}">
-                <label for="title">Название</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="price" name="price"
-                       placeholder="Цена" value="{{ product.price }}">
-                <label for="price">Цена (сом)</label>
-            </div>
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="image" name="image"
-                       placeholder="Ссылка на изображение" value="{{ product.image }}">
-                <label for="image">Ссылка на изображение</label>
-            </div>
-            <div class="form-floating mb-3">
-                <select class="form-control" id="category" name="category">
-                    {% for category in categories %}
-                        <option value="{{ category.id }}"
-                            {% if category.id == product.category.id %}selected{% endif %}>
-                            {{ category.title }}
-                        </option>
-                    {% endfor %}
-                </select>
-                <label for="category">Категория</label>
-            </div>
-            <div class="form-floating mb-3">
-                <textarea class="form-control" id="description" name="description"
-                          placeholder="Описание" style="height: 100px">{{ product.description }}</textarea>
-                <label for="description">Описание</label>
-            </div>
+            {% include 'partial/product_form.html' %}
         </form>
     </div>
-    <div class="card-footer text-end py-3">
+    <div class="card-footer d-flex justify-content-between py-3">
+        <a href="{% url 'product' product.pk %}" class="btn btn-sm btn-outline-secondary">Отмена</a>
         <button type="submit" form="product-form" class="btn btn-sm btn-primary">Сохранить</button>
     </div>
 </div>
