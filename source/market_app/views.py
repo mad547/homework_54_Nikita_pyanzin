@@ -29,7 +29,7 @@ def product_add_view(request):
 
 def product_edit_view(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    product = ProductForm(instance=product)
+    form = ProductForm(instance=product)
     if request.method == 'GET':
         return render(request, 'market_app/product_edit.html', {'form': form, 'product': product})
     elif request.method == 'POST':
