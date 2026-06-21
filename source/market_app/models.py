@@ -35,3 +35,27 @@ class Product(models.Model):
         db_table = 'product'
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+
+
+class CartItem(models.Model):
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='Товар'
+    )
+    quantity = models.IntegerField(
+        default=1,
+        validators=[MinValueValidator(1)],
+        verbose_name='Количество'
+    )
+
+    def __str__(self):
+        return f'{self.product.title} x{self.quantity}'
+
+    def get_total(self):
+        return self.product.price * self.quantity
+
+    class Meta:
+        db_table = 'cart_item'
+        verbose_name = 'Товар в корзине'
+        verbose_name_plural = 'Товары в корзине'
