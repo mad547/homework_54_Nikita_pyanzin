@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ModelForm, widgets
 from market_app.models import Product, Category
 
@@ -24,3 +25,27 @@ class CategoryForm(ModelForm):
             'title': widgets.TextInput(attrs={'class': 'form-control', 'placeholder': 'Название'}),
             'description': widgets.Textarea(attrs={'class': 'form-control', 'rows': '4', 'placeholder': 'Описание'}),
         }
+
+
+class OrderForm(forms.Form):
+    name = forms.CharField(
+        max_length=200,
+        label='Имя',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Ваше имя'})
+    )
+    phone = forms.CharField(
+        max_length=20,
+        label='Телефон',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '+996 XXX XXX XXX'})
+    )
+    address = forms.CharField(
+        max_length=300,
+        label='Адрес',
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Адресс доставки'})
+    )

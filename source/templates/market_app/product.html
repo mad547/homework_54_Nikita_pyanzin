@@ -23,7 +23,7 @@
     <div class="card-footer py-3 d-flex justify-content-between">
         <a href="{% url 'products' %}" class="btn btn-sm btn-outline-secondary">Назад</a>
         <div>
-            <form method="POST" action="{% url 'cart_add' product.pk " class="d-inline">
+            <form method="POST" action="{% url 'cart_add' product.pk %}" class="d-inline">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-sm btn-success me-2">В корзину</button>
             </form>

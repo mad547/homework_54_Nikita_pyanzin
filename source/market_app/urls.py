@@ -3,7 +3,7 @@ from market_app.views import (
     ProductListView, ProductDetailView, ProductCreateView,
     ProductUpdateView, ProductDeleteView,
     CategoryCreateView, CategoryProductsView,
-    CartAddView, CartView, CartRemoveView,
+    CartAddView, CartView, CartRemoveView, OrderCreateView,
 )
 
 
@@ -17,5 +17,6 @@ urlpatterns = [
     path('categories/add/', CategoryCreateView.as_view(), name='category_add'),
     path('categories/<str:category_title>/', CategoryProductsView.as_view(), name='category_products'),
     path('cart/', CartView.as_view(), name='cart'),
-    path('cart/<int.pk>/remove/', CartRemoveView.as_view(), name='cart_remove'),
+    path('cart/<int:pk>/remove/', CartRemoveView.as_view(), name='cart_remove'),
+    path('orders/create/', OrderCreateView.as_view(), name='order_create'),
 ]

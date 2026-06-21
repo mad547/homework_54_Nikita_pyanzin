@@ -1,10 +1,10 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
-from market_app.models import Product, Category, CartItem
-from market_app.forms import ProductForm, CategoryForm
+from market_app.models import Product, Category, CartItem, Order, OrderItem
+from market_app.forms import ProductForm, CategoryForm, OrderForm
 
 class ProductListView(ListView):
     template_name = 'market_app/products.html'
@@ -94,6 +94,7 @@ class CartView(ListView):
         context = super().get_context_data(**kwargs)
         items = CartItem.objects.all()
         context['total'] = sum(item.get_total() for item in items)
+        context['form'] = OrderForm()
         return context
 
 
@@ -117,3 +118,30 @@ class CartRemoveView(View):
         cart_item = get_object_or_404(CartItem, pk=pk)
         cart_item.delete()
         return redirect('cart')
+
+
+class OrderCreateView(View):
+    def post(self, request):
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = Order.objects.create(
+                name=form.cleaned_data['name'],
+                phone=form.cleaned_data['phone'],
+                address=form.cleaned_data['address'],
+            )
+            cart_items = CartItem.objects.all()
+            for item in cart_items:
+                OrderItem.objects.create(
+                    order=order,
+                    product=item.product,
+                    quantity=item.quantity,
+                )
+            cart_items.delete()
+            return redirect('products')
+        cart_items = CartItem.objects.all()
+        total = sum(item.get_total() for item in cart_items)
+        return render(request, 'market_app/cart.html', {
+            'cart_items': cart_items,
+            'total': total,
+            'form': form,
+        })
