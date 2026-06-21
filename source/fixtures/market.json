@@ -32,6 +32,22 @@
   }
 },
 {
+  "model": "market_app.category",
+  "pk": 5,
+  "fields": {
+    "title": "электроника",
+    "description": ""
+  }
+},
+{
+  "model": "market_app.category",
+  "pk": 6,
+  "fields": {
+    "title": "компьютеры",
+    "description": "компьютеры и их компоненты"
+  }
+},
+{
   "model": "market_app.product",
   "pk": 1,
   "fields": {
@@ -120,6 +136,82 @@
     "price": "500.00",
     "image": "https://basket-05.wbbasket.ru/vol996/part99617/99617259/images/big/1.webp",
     "stock": 30
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 10,
+  "fields": {
+    "title": "наушники",
+    "description": "наушники Sony",
+    "category": 5,
+    "created_at": "2026-06-21T18:14:07.450Z",
+    "price": "2000.00",
+    "image": "https://www.myphone.kg/files/media/18/18340.webp",
+    "stock": 20
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 11,
+  "fields": {
+    "title": "ноутбук асус",
+    "description": "",
+    "category": 6,
+    "created_at": "2026-06-21T18:21:22.319Z",
+    "price": "50000.00",
+    "image": "https://www.myphone.kg/cache/files/20036.jpg_w800_h800_resize.jpg?t=1775826744",
+    "stock": 10
+  }
+},
+{
+  "model": "market_app.product",
+  "pk": 12,
+  "fields": {
+    "title": "наушники hoco",
+    "description": "",
+    "category": 5,
+    "created_at": "2026-06-21T18:23:40.530Z",
+    "price": "1500.00",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCTK3R0-ZEt4p_x2FMtIdrecHeV1csCRlbUj3edWtBop2kHilWSPc7a1Y&s=10",
+    "stock": 30
+  }
+},
+{
+  "model": "market_app.order",
+  "pk": 1,
+  "fields": {
+    "name": "MONRACK547",
+    "phone": "996 557238547",
+    "address": "ijgjrjd",
+    "created_at": "2026-06-21T18:12:38.620Z"
+  }
+},
+{
+  "model": "market_app.orderitem",
+  "pk": 1,
+  "fields": {
+    "order": 1,
+    "product": 7,
+    "quantity": 1
+  }
+},
+{
+  "model": "market_app.orderitem",
+  "pk": 2,
+  "fields": {
+    "order": 1,
+    "product": 8,
+    "quantity": 1
+  }
+},
+{
+  "model": "market_app.orderitem",
+  "pk": 3,
+  "fields": {
+    "order": 1,
+    "product": 6,
+    "quantity": 1
   }
 }
 ]
