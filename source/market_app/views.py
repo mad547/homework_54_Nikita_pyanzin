@@ -1,10 +1,9 @@
-from multiprocessing import context
-
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from django.db.models import Q
+from django.shortcuts import get_object_or_404, redirect
 
-from market_app.models import Product, Category
+from market_app.models import Product, Category, CartItem
 from market_app.forms import ProductForm, CategoryForm
 
 class ProductListView(ListView):
@@ -31,7 +30,7 @@ class ProductListView(ListView):
 
 
 class ProductDetailView(DetailView):
-    template_name = 'market_app/products.html'
+    template_name = 'market_app/product.html'
     model = Product
     context_object_name = 'product'
 
@@ -59,7 +58,7 @@ class ProductDeleteView(DeleteView):
     template_name = 'market_app/product_confirm_delete.html'
     model = Product
     context_object_name = 'product'
-    success_url = reverse_lazy('product')
+    success_url = reverse_lazy('products')
 
 
 class CategoryCreateView(CreateView):
@@ -83,3 +82,38 @@ class CategoryProductsView(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = self.category
         return context
+
+class CartView(ListView):
+    template_name = 'market_app/cart.html'
+    context_object_name = 'cart_items'
+
+    def get_queryset(self):
+        return CartItem.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        items = CartItem.objects.all()
+        context['total'] = sum(item.get_total() for item in items)
+        return context
+
+
+class CartAddView(View):
+    def post(self, request, pk):
+        product = get_object_or_404(Product, pk=pk)
+        if product.stock < 1:
+            return redirect('products')
+        cart_item = CartItem.objects.filter(product=product).first()
+        if cart_item:
+            if cart_item.quantity < product.stock:
+                cart_item.quantity += 1
+                cart_item.save()
+        else:
+            CartItem.objects.create(product=product, quantity=1)
+        return redirect('products')
+
+
+class CartRemoveView(View):
+    def post(self, request, pk):
+        cart_item = get_object_or_404(CartItem, pk=pk)
+        cart_item.delete()
+        return redirect('cart')

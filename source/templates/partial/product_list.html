@@ -16,6 +16,10 @@
                 <a href="{% url 'product' product.pk %}" class="btn btn-outline-primary btn-sm mt-auto">
                     Подробнее
                 </a>
+                <form method="POST" action="{% url 'cart_add' product.pk %}" class="mt-2">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success btn-sm w-100">В корзину</button>
+                </form>
             </div>
         </div>
     </div>
