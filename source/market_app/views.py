@@ -1,69 +1,85 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from multiprocessing import context
+
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.db.models import Q
+
 from market_app.models import Product, Category
 from market_app.forms import ProductForm, CategoryForm
 
+class ProductListView(ListView):
+    template_name = 'market_app/products.html'
+    context_object_name = 'products'
+    paginate_by = 5
 
-def products_view(request):
-    products = Product.objects.filter(stock__gte=1).order_by('category__title', 'title')
-    context = {'products': products}
-    return render(request, 'market_app/products.html', context)
+    def get_queryset(self):
+        queryset = Product.objects.filter(
+            stock__gte=1
+        ).order_by('category__title', 'title')
 
+        search = self.request.GET.get('search', '')
+        if search:
+            queryset = queryset.filter(
+                Q(title__icontains=search) | Q(description__icontains=search)
+            )
+        return queryset
 
-def product_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {'product': product}
-    return render(request, 'market_app/product.html', context)
-
-
-def product_add_view(request):
-    form = ProductForm()
-    if request.method == 'GET':
-        return render(request, 'market_app/product_add.html', {'form': form})
-    elif request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            product = form.save()
-            return redirect('product', pk=product.pk)
-    return render(request, 'market_app/product_add.html', {'form': form})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search'] = self.request.GET.get('search', '')
+        return context
 
 
-def product_edit_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    form = ProductForm(instance=product)
-    if request.method == 'GET':
-        return render(request, 'market_app/product_edit.html', {'form': form, 'product': product})
-    elif request.method == 'POST':
-        form = ProductForm(request.POST, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect('product', pk=product.pk)
-        return render(request, 'market_app/product_edit.html', {'form': form, 'product': product})
+class ProductDetailView(DetailView):
+    template_name = 'market_app/products.html'
+    model = Product
+    context_object_name = 'product'
 
 
-def product_delete_view(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    if request.method == 'POST':
-        product.delete()
-        return redirect('products')
-    return render(request, 'market_app/product_confirm_delete.html', {'product': product})
+class ProductCreateView(CreateView):
+    template_name = 'market_app/product_add.html'
+    form_class = ProductForm
+    model = Product
+
+    def get_success_url(self):
+        return reverse_lazy('product', kwargs={'pk': self.object.pk})
 
 
-def category_add_view(request):
-    form = CategoryForm()
-    if request.method == 'GET':
-        return render(request, 'market_app/category_add.html', {'form': form})
-    elif request.method == 'POST':
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('products')
-        return render(request, 'market_app/category_add.html', {'form': form})
+class ProductUpdateView(UpdateView):
+    template_name = 'market_app/product_edit.html'
+    form_class = ProductForm
+    model = Product
+    context_object_name = 'product'
+
+    def get_success_url(self):
+        return reverse_lazy('product', kwargs={'pk': self.object.pk})
 
 
-def category_products_view(request, category_title):
-    category = get_object_or_404(Category, title=category_title)
-    products = Product.objects.filter(
-        category=category, stock__gte=1
-    ).order_by('title')
-    context = {'products': products, 'category': category}
-    return render(request, 'market_app/category_products.html', context)
+class ProductDeleteView(DeleteView):
+    template_name = 'market_app/product_confirm_delete.html'
+    model = Product
+    context_object_name = 'product'
+    success_url = reverse_lazy('product')
+
+
+class CategoryCreateView(CreateView):
+    template_name = 'market_app/category_add.html'
+    form_class = CategoryForm
+    model = Category
+    success_url = reverse_lazy('products')
+
+
+class CategoryProductsView(ListView):
+    template_name = 'market_app/category_products.html'
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        self.category = Category.objects.get(title=self.kwargs.get('category_title'))
+        return Product.objects.filter(
+            category=self.category, stock__gte=1
+        ).order_by('title')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        return context

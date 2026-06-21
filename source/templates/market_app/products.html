@@ -5,5 +5,39 @@
     <h1 class="mb-0">Товары</h1>
     <a href="{% url 'product_add' %}" class="btn btn-primary">Добавить товар</a>
 </div>
+
+<form method="GET" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="search" class="form-control"
+               placeholder="Поиск по названию или описанию"
+               value="{{ search }}">
+        <button type="submit" class="btn btn-outline-primary">Найти</button>
+        {% if search %}
+            <a href="{% url 'products' %}" class="btn btn-outline-secondary">Сбросить</a>
+        {% endif %}
+    </div>
+</form>
+
 {% include 'partial/product_list.html' %}
+
+{% if is_paginated %}
+<div class="d-flex justify-content-center gap-2 mt-4">
+    {% if page_obj.has_previous %}
+        <a href="?{% if search %}search={{ search }}&{% endif %}page=1"
+           class="btn btn-sm btn-outline-secondary">В начало</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}page={{ page_obj.previous_page_number }}"
+           class="btn btn-sm btn-outline-secondary">Назад</a>
+    {% endif %}
+    <span class="btn btn-sm btn-light">
+        {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    </span>
+    {% if page_obj.has_next %}
+        <a href="?{% if search %}search={{ search }}&{% endif %}page={{ page_obj.next_page_number }}"
+           class="btn btn-sm btn-outline-secondary">Далее</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}page={{ page_obj.paginator.num_pages }}"
+           class="btn btn-sm btn-outline-secondary">В конец</a>
+    {% endif %}
+</div>
+{% endif %}
+
 {% endblock %}
