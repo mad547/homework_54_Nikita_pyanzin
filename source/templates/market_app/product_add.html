@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card shadow-sm my-4">
-    <div class="card-header fs-4 text-center py-3">Добавить товар</div>
-    <div class="card-body">
+<div class="market-card my-4" style="max-width: 600px; margin: auto;">
+    <div class="market-card-header text-center">Добавить товар</div>
+    <div class="p-4">
         <form id="product-form" action="" method="POST">
             {% include 'partial/product_form.html' %}
         </form>
     </div>
-    <div class="card-footer d-flex justify-content-between py-3">
-        <a href="{% url 'products' %}" class="btn btn-sm btn-outline-secondary">Отмена</a>
-        <button type="submit" form="product-form" class="btn btn-sm btn-primary">Сохранить</button>
+    <div class="market-card-footer d-flex justify-content-between">
+        <a href="{% url 'products' %}" class="btn-market-outline">Отмена</a>
+        <button type="submit" form="product-form" class="btn-market">Сохранить</button>
     </div>
 </div>
 {% endblock %}

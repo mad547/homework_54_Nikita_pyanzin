@@ -6,17 +6,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
           crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>My Market</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark market-navbar">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="{% url 'products' %}">My Market</a>
+        <a class="navbar-brand market-brand" href="{% url 'products' %}">🛍 My Market</a>
         <div class="navbar-nav ms-auto">
             <a class="nav-link" href="{% url 'products' %}">Товары</a>
             <a class="nav-link" href="{% url 'product_add' %}">Добавить товар</a>
             <a class="nav-link" href="{% url 'category_add' %}">Добавить категорию</a>
-            <a class="nav-link" href="{% url 'cart' %}">Корзина</a>
+            <a class="nav-link" href="{% url 'cart' %}">🛒 Корзина</a>
         </div>
     </div>
 </nav>

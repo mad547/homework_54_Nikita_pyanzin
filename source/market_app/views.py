@@ -9,7 +9,7 @@ from market_app.forms import ProductForm, CategoryForm, OrderForm
 class ProductListView(ListView):
     template_name = 'market_app/products.html'
     context_object_name = 'products'
-    paginate_by = 5
+    paginate_by = 4
 
     def get_queryset(self):
         queryset = Product.objects.filter(

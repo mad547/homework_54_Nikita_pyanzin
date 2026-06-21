@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="card shadow-sm my-4">
-    <div class="card-header fs-4 text-center py-3 text-danger">Удаление товара</div>
-    <div class="card-body text-center">
+<div class="market-card my-4" style="max-width: 500px; margin: auto;">
+    <div class="market-card-header text-center" style="background: linear-gradient(135deg, #e53e3e, #c53030);">
+        Удаление товара
+    </div>
+    <div class="p-4 text-center">
         <p class="fs-5">Вы уверены что хотите удалить товар?</p>
         <p class="fw-bold fs-4">{{ product.title }}</p>
-        <img src="{{ product.image }}" style="width: 150px; height: 150px; object-fit: cover;" alt="{{ product.title }}" class="rounded mb-3">
+        <img src="{{ product.image }}" style="width: 130px; height: 130px; object-fit: cover;"
+             alt="{{ product.title }}" class="rounded mb-3 shadow-sm">
     </div>
-    <div class="card-footer d-flex justify-content-between py-3">
-      <a href="{% url 'product' product.pk %}" class="btn btn-sm btn-outline-secondary">Отмена</a>
-      <form method="POST">
-           {% csrf_token %}
-           <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
-      </form>
+    <div class="market-card-footer d-flex justify-content-between">
+        <a href="{% url 'product' product.pk %}" class="btn-market-outline">Отмена</a>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-market-danger">Удалить</button>
+        </form>
     </div>
 </div>
 {% endblock %}

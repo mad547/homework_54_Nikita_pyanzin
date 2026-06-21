@@ -2,14 +2,14 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0">Корзина</h1>
-    <a href="{% url 'products' %}" class="btn btn-outline-secondary btn-sm">Продолжить покупки</a>
+    <h1 class="page-header mb-0">Корзина</h1>
+    <a href="{% url 'products' %}" class="btn-market-outline">Продолжить покупки</a>
 </div>
 
 {% if cart_items %}
-<div class="card shadow-sm mb-4">
-    <table class="table table-hover mb-0">
-        <thead class="table-dark">
+<div class="market-card mb-4">
+    <table class="market-table w-100">
+        <thead>
             <tr>
                 <th>Товар</th>
                 <th>Цена</th>
@@ -20,7 +20,7 @@
         </thead>
         <tbody>
             {% for item in cart_items %}
-            <tr>
+            <tr class="row-hover">
                 <td>
                     <a href="{% url 'product' item.product.pk %}" class="text-decoration-none">
                         {{ item.product.title }}
@@ -28,26 +28,26 @@
                 </td>
                 <td>{{ item.product.price }} сом</td>
                 <td>{{ item.quantity }}</td>
-                <td>{{ item.get_total }} сом</td>
+                <td class="price-tag">{{ item.get_total }} сом</td>
                 <td>
                     <form method="POST" action="{% url 'cart_remove' item.pk %}">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Удалить</button>
+                        <button type="submit" class="btn-market-danger">Удалить</button>
                     </form>
                 </td>
             </tr>
             {% endfor %}
-            <tr class="table-secondary fw-bold">
-                <td colspan="3" class="text-end">Итого:</td>
-                <td colspan="2">{{ total }} сом</td>
+            <tr style="background: #f8f9fa; font-weight: 600;">
+                <td colspan="3" class="text-end p-3">Итого:</td>
+                <td colspan="2" class="p-3 price-tag">{{ total }} сом</td>
             </tr>
         </tbody>
     </table>
 </div>
 
-<div class="card shadow-sm">
-    <div class="card-header fs-5 py-3">Оформить заказ</div>
-    <div class="card-body">
+<div class="market-card">
+    <div class="market-card-header">Оформить заказ</div>
+    <div class="p-4">
         <form method="POST" action="{% url 'order_create' %}">
             {% csrf_token %}
             {% for error in form.non_field_errors %}
@@ -64,12 +64,17 @@
                     {% endfor %}
                 </div>
             {% endfor %}
-            <button type="submit" class="btn btn-success w-100">Оформить заказ</button>
+            <button type="submit" class="btn-market-success" style="width: 100%; padding: 10px;">
+                Оформить заказ
+            </button>
         </form>
     </div>
 </div>
 
 {% else %}
-<div class="alert alert-info">Корзина пуста</div>
+<div class="empty-market">
+    <p class="fs-5">Корзина пуста</p>
+    <a href="{% url 'products' %}" class="btn-market">Перейти к товарам</a>
+</div>
 {% endif %}
 {% endblock %}
